@@ -1,24 +1,25 @@
 <template>
+    <h2>K-chart</h2>
     <div>
       <form @submit.prevent="fetchData">
-        <label for="timeUnit">选择时间单位:</label>
-        <select v-model="timeUnit" id="timeUnit">
-          <option value="second">秒</option>
-          <option value="minute">分钟</option>
-        </select>
-  
-        <label for="interval">选择时间间隔:</label>
+
+        <label for="interval">Time interval:</label>
         <select v-model="interval" id="interval">
           <option v-for="option in intervals" :key="option" :value="option">{{ option }}</option>
         </select>
-  
-        <label for="startTime">选择起始时间:</label>
+        <label for="timeUnit">Time unit:</label>
+        <select v-model="timeUnit" id="timeUnit">
+          <option value="second">second</option>
+          <option value="minute">minute</option>
+        </select>
+
+        <label for="startTime">Start time:</label>
         <input type="datetime-local" v-model="startTime" id="startTime" />
   
-        <label for="endTime">选择结束时间:</label>
+        <label for="endTime">End time:</label>
         <input type="datetime-local" v-model="endTime" id="endTime" />
   
-        <button type="submit">获取数据</button>
+        <button type="submit">Plot</button>
       </form>
   
       <div id="chart" style="width: 100%; height: 500px;"></div>
@@ -34,18 +35,15 @@
     data() {
       return {
         chart: null,
-        timeUnit: 'second',
+        timeUnit: 'minute',
         interval: 1,
         intervals: [1, 5, 10, 20, 30, 60],
-        startTime: '',
-        endTime: '',
+        startTime: new Date(1737084270000).toISOString().slice(0, 16),
+        endTime: new Date(1738095270000).toISOString().slice(0, 16),
         stockData: []
       };
     },
     async created() {
-      const now = new Date().toISOString().slice(0, 16); // 获取当前时间，格式为 YYYY-MM-DDTHH:MM
-      this.startTime = now;
-      this.endTime = now;
       await this.fetchData();
       this.initChart();
     },

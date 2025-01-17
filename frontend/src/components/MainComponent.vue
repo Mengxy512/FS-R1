@@ -1,6 +1,5 @@
 <template>
     <div>
-      <h1>Notification Preferences and Stock Chart</h1>
       <NotificationPrefForm />
       <StockChart />
       <AlertChecker :userId="1" />  <!-- 假设用户ID为1 -->
