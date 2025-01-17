@@ -78,7 +78,7 @@
       async fetchInitialData() {
         try {
           // 假设用户ID为1
-          const response = await axios.get('http://localhost:3100/api/notificationPref', {
+          const response = await axios.get('http://112.124.59.151:3100/api/notificationPref', {
             params: { user_id: 1 }
           });
   
@@ -96,7 +96,7 @@
       },
       async submitForm() {
         try {
-          const response = await axios.post('http://localhost:3100/api/notificationPref', this.formData);
+          const response = await axios.post('http://112.124.59.151:3100/api/notificationPref', this.formData);
           console.log('Response:', response.data);
           this.$emit('formSubmitted');
           await this.fetchInitialData();  // 提交表单后重新获取现有的通知偏好设置

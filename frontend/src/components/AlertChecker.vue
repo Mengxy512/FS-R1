@@ -22,7 +22,7 @@
     methods: {
       async checkAlerts() {
         try {
-          const response = await axios.get('http://localhost:3101/api/alerts', {
+          const response = await axios.get('http://112.124.59.151:3101/api/alerts', {
             params: { user_id: this.userId }
           });
           console.log('alert :>> ', response.data.alert);

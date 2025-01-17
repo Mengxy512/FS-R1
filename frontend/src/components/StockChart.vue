@@ -54,7 +54,7 @@
         try {
             console.log('startTime :>> ', new Date(this.startTime).getTime());
             console.log('endTime :>> ', new Date(this.endTime).getTime());
-          const response = await axios.get('http://localhost:3100/api/stocks', {
+          const response = await axios.get('http://112.124.59.151:3100/api/stocks', {
             params: {
               timeUnit: this.timeUnit,
               interval: this.interval,
