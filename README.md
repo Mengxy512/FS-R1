@@ -37,6 +37,13 @@ npx tsc
 npm run start:all
 ```
 
+### Test
+You can manually send a notification by run script. When the frond-end page is open, the alert window will pop out.
+
+```shell
+node ./dist/testkafka.js
+```
+
 ## Front-end
 
 The needed backend api service is provided on online server.
