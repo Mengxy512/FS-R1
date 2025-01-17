@@ -37,7 +37,7 @@ async function handleSSE() {
           INSERT INTO prices (timestamp, price) VALUES (?, ?)`;
         try {
           const [results] = await pool.query(query, [timestamp, price]);
-          console.log('Data inserted/updated successfully:', results);
+          //console.log('Data inserted/updated successfully:', results);
 
           // 更新缓存
           cache.set(id, { timestamp, price });
