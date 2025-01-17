@@ -25,7 +25,6 @@ const fetchTasks = async (currentTimestamp: number): Promise<Task[]> => {
   `,
     [currentTimestamp],
   );
-  console.log('get task row :>> ', rows);
   return rows.map((row: any) => ({
     id: row.id,
     user_id: row.user_id,
@@ -70,7 +69,6 @@ const checkPrices = async (task: Task, currentTimestamp: number) => {
     ]);
     // 更新 next_time
     const newNextTime = fixedNextTime + intervalSeconds;
-    console.log('get data row :>> ', rows);
     await pool.query(
       'UPDATE notification_pref SET next_time = ? WHERE id = ?',
       [newNextTime, id],
@@ -95,7 +93,7 @@ const checkPrices = async (task: Task, currentTimestamp: number) => {
         : currentInterval.close_price > previousInterval.close_price;
 
     if (openPriceCondition && closePriceCondition) {
-      const message = `User ${user_id}: Interval ${currentInterval.time_interval}: Open Price: ${currentInterval.open_price}, Close Price: ${currentInterval.close_price}`;
+      const message = `${user_id}`;
       await sendMessage('price-check', message);
     }
   } catch (error) {
@@ -103,14 +101,13 @@ const checkPrices = async (task: Task, currentTimestamp: number) => {
   }
 };
 
-const scheduleTasks = async () => {
+const scheduleCheckers = async () => {
   const currentTimestamp = Math.floor(Date.now());
   const tasks = await fetchTasks(currentTimestamp);
-  console.log('next :>> ');
   tasks.forEach((task) => {
     checkPrices(task, currentTimestamp);
   });
 };
 
-// 每秒钟检查一下一次
-setInterval(scheduleTasks, 1000);
+// 每秒钟检查一次
+setInterval(scheduleCheckers, 1000);

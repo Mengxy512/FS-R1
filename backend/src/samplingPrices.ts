@@ -4,13 +4,11 @@ import { RowDataPacket } from 'mysql2';
 // 获取当前秒的开盘价和收盘价
 async function recordSecondPrices() {
   const timestamp = Math.floor(Date.now() / 1000) - 1; // 当前秒的时间戳
-  console.log('second timestamp :>> ', timestamp);
   try {
     const [rows] = await pool.query<RowDataPacket[]>(
       'SELECT price FROM prices WHERE FLOOR(timestamp / 1000) = ?',
       [timestamp],
     );
-    console.log('rows :>> ', rows);
     if (Array.isArray(rows) && rows.length > 0) {
       const openPrice = rows[0].price;
       const closePrice = rows[rows.length - 1].price;
@@ -31,13 +29,11 @@ async function recordSecondPrices() {
 // 获取当前秒的开盘价和收盘价
 async function recordMinutePrices() {
   const timestamp = Math.floor(Date.now() / 60000) - 1; // 当前分钟的时间戳
-  console.log('minute timestamp :>> ', timestamp);
   try {
     const [rows] = await pool.query<RowDataPacket[]>(
       'SELECT price FROM prices WHERE FLOOR(timestamp / 60000) = ?',
       [timestamp],
     );
-    console.log('rows :>> ', rows);
     if (Array.isArray(rows) && rows.length > 0) {
       const openPrice = rows[0].price;
       const closePrice = rows[rows.length - 1].price;

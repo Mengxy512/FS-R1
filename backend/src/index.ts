@@ -13,6 +13,7 @@ app.use(cors());
 app.use(notificationPrefRoutes);
 app.use(stockPriceRoutes);
 
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

@@ -7,12 +7,6 @@ const router = Router();
 router.get('/api/stocks', async (req: any, res: any) => {
   try {
     const { timeUnit, interval, startTime, endTime } = req.query;
-    console.log('{ timeUnit, interval, startTime, endTime } :>> ', {
-      timeUnit,
-      interval,
-      startTime,
-      endTime,
-    });
     let tableName = '';
     if (timeUnit === 'second') {
       tableName = 'second_prices';
@@ -41,7 +35,6 @@ router.get('/api/stocks', async (req: any, res: any) => {
       startTime,
       endTime,
     ]);
-    console.log('rows :>> ', rows);
     res.json(rows);
   } catch (err) {
     console.error('Error fetching data from MySQL:', err);
